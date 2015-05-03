@@ -1,116 +1,73 @@
-Features
+Особенности
 ========
 
-Flask-Security allows you to quickly add common security mechanisms to your
-Flask application. They include:
+Flask-security позволяет быстро добавлять общие механизмы безопасности для вашего приложения. Он включает в себя:
 
 
-Session Based Authentication
+Аутентификация на основе сессии
 ----------------------------
 
-Session based authentication is fulfilled entirely by the `Flask-Login`_
-extension. Flask-Security handles the configuration of Flask-Login automatically
-based on a few of its own configuration values and uses Flask-Login's
-`alternative token`_ feature for remembering users when their session has
-expired.
+Аутентификация на основе сессии осуществляется исключительно за счет расширения `Flask-Login`_. Flask-Security автоматически обрабатывает конфигурацию Flask-Login на основе нескольких собственных конфигурационных значений и использует `Flask-Login токен`_ для запоминания пользователей, когда их сессия истекла.
 
 
 Role/Identity Based Access
 --------------------------
 
-Flask-Security implements very basic role management out of the box. This means
-that you can associate a high level role or multiple roles to any user. For
-instance, you may assign roles such as `Admin`, `Editor`, `SuperUser`, or a
-combination of said roles to a user. Access control is based on the role name
-and all roles should be uniquely named. This feature is implemented using the
-`Flask-Principal`_ extension. If you'd like to implement more granular access
-control, you can refer to the Flask-Principal `documentation on this topic`_.
+Flask-Security реализует очень простое управление группами пользователей из коробки. Это означает, что вы можете привязать к одному пользователю, как высокий уровень привилегий, так и несколько ролей сразу. Например, вы можете назначить следующие роли пользователям: администратор, редактор, суперпользователь, или их комбинацию. Контроль доступа на основе ролей и все их имена должны быть уникальными. Эта функция реализуется с помощью расширения `Flask-Principal`_. Если вы хотели бы осуществлять более продвинутый контроль доступа, вы можете обратиться к Flask-Principal `документации`_.
 
 
-Password Encryption
+Шифрование паролей
 -------------------
 
-Password encryption is enabled with `passlib`_. Passwords are stored in plain
-text by default but you can easily configure the encryption algorithm. You
-should **always use an encryption algorithm** in your production environment.
-You may also specify to use HMAC with a configured salt value in addition to the
-algorithm chosen. Bear in mind passlib does not assume which algorithm you will
-choose and may require additional libraries to be installed.
+Шифрование паролей реализовано через `passlib`_. По умолчанию, пароли хранятся в виде обычного текста, но вы можете легко настроить алгоритм шифрования. Вы должны всегда использовать алгоритм шифрования в вашем приложении, подробнее вы можете прочитать в моей статье.
 
 
-Basic HTTP Authentication
+HTTP-аутентификация
 -------------------------
 
-Basic HTTP authentication is achievable using a simple view method decorator.
-This feature expects the incoming authentication information to identify a user
-in the system. This means that the username must be equal to their email address.
+HTTP-аутентификация использует простой декоратор. Эта функция ожидает входящие данные аунтификации для идентификации пользователя в системе. Это означает, что имя пользователя должно быть равно адресу его электронной почты.
 
 
-Token Authentication
+Токен авторизации
 --------------------
 
-Token based authentication is enabled by retrieving the user auth token by
-performing an HTTP POST with the authentication details as JSON data against the
-authentication endpoint. A successful call to this endpoint will return the
-user's ID and their authentication token. This token can be used in subsequent
-requests to protected resources. The auth token is supplied in the request
-through an HTTP header or query string parameter. By default the HTTP header
-name is `Authentication-Token` and the default query string parameter name is
-`auth_token`. Authentication tokens are generated using the user's password.
-Thus if the user changes his or her password their existing authentication token
-will become invalid. A new token will need to be retrieved using the user's new
-password.
+Проверка авторизации на основе токена включена путем извлечения токена аутентификации пользователя, путем отправки HTTP POST с деталями аутентификации. Успешный запрос вернет ID пользователя и токен аутентификации. Этот токен может быть использован в последующих запросах к защищенным ресурсам. Токен аутентификации передается в запросе через HTTP-заголовки или в GET параметрах. По умолчанию, имя HTTP-заголовка Authentication-Token, а стандартное имя GET параметра auth_token. Токены аутентификации генерируются с помощью пароля пользователя. Таким образом, если изменяется пароль пользователя, то существующий токен становится недействительным. Соответственно, новый токен будет получен уже с помощью нового пароля пользователя.
 
 
-Email Confirmation
+Подтверждающее письмо о регистрации
 ------------------
 
-If desired you can require that new users confirm their email address.
-Flask-Security will send an email message to any new users with an confirmation
-link. Upon navigating to the confirmation link, the user will be automatically
-logged in. There is also view for resending a confirmation link to a given email
-if the user happens to try to use an expired token or has lost the previous
-email. Confirmation links can be configured to expire after a specified amount
-of time.
+При желании вы можете потребовать, чтобы новый пользователь подтвердил, указанный при регистрации, адрес электронной почты. Flask-Security будет отправлять email-сообщение для этого пользователя, с ссылкой для подтверждения своего аккаунта. После перехода по ссылке, пользователь будет автоматически зарегистрирован. Так же, существует возможность для повторной отправки подтверждающей ссылки, если пользователи пытался активировать уже просроченный токен или при потере доступа к предыдущему email-адресу.
 
 
-Password Reset/Recovery
+Сброс/восстановление пароля
 -----------------------
 
-Password reset and recovery is available for when a user forgets his or her
-password. Flask-Security sends an email to the user with a link to a view which
-they can reset their password. Once the password is reset they are automatically
-logged in and can use the new password from then on. Password reset links  can
-be configured to expire after a specified amount of time.
+Flask-Security отправляет сообщение электронной почты пользователю со ссылкой, по которой они могут сбросить свой пароль. Когда пароль будет сброшен, они автоматически войдут в систему и с того момента, смогут использовать новый пароль.
 
 
-User Registration
+Регистрация пользователя
 -----------------
 
-Flask-Security comes packaged with a basic user registration view. This view is
-very simple and new users need only supply an email address and their password.
-This view can be overrided if your registration process requires more fields.
+Flask-Security предоставляет функционал регистрации пользователей. Это очень просто, ведь для регистрации нового пользователя необходимо ввести только адрес своей электронной почты и пароль. Количество полей можно легко изменить, если ваш процесс регистрации требует больше данных.
 
 
-Login Tracking
+Логгирование
 --------------
 
-Flask-Security can, if configured, keep track of basic login events and
-statistics. They include:
+Flask-Security, если настроен на эту опцию, может отслеживать основные события входа в систему. А именно:
 
-* Last login date
-* Current login date
-* Last login IP address
-* Current login IP address
-* Total login count
+* Дата последнего входа в систему
+* Время текущего входа
+* Последний IP адрес
+* Текущий IP адрес
+* Общее количество авторизаций
 
 
-JSON/Ajax Support
+Поддержка AJAX/JSON
 -----------------
 
-Flask-Security supports JSON/Ajax requests where appropriate. Just remember that
-all endpoints require a CSRF token just like HTML views. More specifically
-JSON is supported for the following operations:
+Flask-Security поддерживает формат json/AJAX-запросов там, где это уместно. Просто помните, что все конечные точки требуют csrf-токен. Более конкретно, json поддерживается для следующих запросов:
 
 * Login requests
 * Registration requests
