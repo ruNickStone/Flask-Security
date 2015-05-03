@@ -4,9 +4,9 @@
 .. toctree::
    :maxdepth: 1
 
-   Особенности
-   Конфигурация
-   Быстрый cтарт
-   Модели
-   Настройка шаблонов
-   API
+   features
+   configuration
+   quickstart
+   models
+   customizing
+   api
