@@ -1,14 +1,12 @@
-Contents
+Содержание
 --------
 
 .. toctree::
    :maxdepth: 1
 
-   features
-   configuration
-   quickstart
-   models
-   customizing
-   api
-   changelog
-   authors
+   Особенности
+   Конфигурация
+   Быстрый cтарт
+   Модели
+   Настройка шаблонов
+   API
