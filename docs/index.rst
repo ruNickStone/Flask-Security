@@ -1,24 +1,22 @@
 Flask-Security
 ==============
 
-Flask-Security allows you to quickly add common security mechanisms to your
-Flask application. They include:
+Flask-security позволяет быстро добавлять механизмы безопасности для вашего приложения. Он включает в себя:
 
-1. Session based authentication
-2. Role management
-3. Password encryption
-4. Basic HTTP authentication
-5. Token based authentication
-6. Token based account activation (optional)
-7. Token based password recovery / resetting (optional)
-8. User registration (optional)
-9. Login tracking (optional)
-10. JSON/Ajax Support
+1. Аутентификация на основе сессии
+2. Управление ролями (группами пользователей)
+3. Шифрование пароля
+4. HTTP-аутентификацию
+5. Токен аутентификацию
+6. Активация учетной записи на основе токена (опционально)
+7. Токен восстановления/сброса пароля (опционально)
+8. Регистрация пользователей (опционально)
+9. Отслеживание входа (опционально)
+10. Поддержка JSON/AJAX
 
-Many of these features are made possible by integrating various Flask extensions
-and libraries. They include:
+Многие из этих функций стали возможными благодаря интеграции с различными flask-расширениями и библиотеками. А именно:
 
-1. `Flask-Login <http://packages.python.org/Flask-Login/>`_
+1. `Flask-Login <https://flask-login.readthedocs.org/en/latest/>`_
 2. `Flask-Mail <http://packages.python.org/Flask-Mail/>`_
 3. `Flask-Principal <http://packages.python.org/Flask-Principal/>`_
 4. `Flask-Script <http://packages.python.org/Flask-Script/>`_
@@ -26,9 +24,7 @@ and libraries. They include:
 6. `itsdangerous <http://packages.python.org/itsdangerous/>`_
 7. `passlib <http://packages.python.org/passlib/>`_
 
-Additionally, it assumes you'll be using a common library for your database
-connections and model definitions. Flask-Security supports the following Flask
-extensions out of the box for data persistence:
+Кроме того, предполагается, что вы будете использовать одну из представленных ниже библиотек, для соединения с базой данных и определения моделей. Flask-Security поддерживает следующие расширения из коробки:
 
 1. `Flask-SQLAlchemy <http://pypi.python.org/pypi/flask-sqlalchemy/>`_
 2. `Flask-MongoEngine <http://pypi.python.org/pypi/flask-mongoengine/>`_
